@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="概念,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="NB-IoT CoAP协议协议简介CoAP（Constrained Application Protocol）是一种在物联网世界的类web协议，它的详细规范定义在 RFC 7252。在物联网应用里面， 设备与设备之间都存在网络里面，它们需要互相进行网络通信。 但由于通常物联网设备都是资源限制型的，有限的CPU能力，有限RAM,有限的flash，有限的网络带宽， 针对此类特殊场景，COAP协议借鉴了">
+<meta name="keywords" content="概念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CoAP协议">
+<meta property="og:url" content="http://yoursite.com/2020/01/04/nb_iot/CoAP协议/index.html">
+<meta property="og:site_name" content="kerwinan">
+<meta property="og:description" content="NB-IoT CoAP协议协议简介CoAP（Constrained Application Protocol）是一种在物联网世界的类web协议，它的详细规范定义在 RFC 7252。在物联网应用里面， 设备与设备之间都存在网络里面，它们需要互相进行网络通信。 但由于通常物联网设备都是资源限制型的，有限的CPU能力，有限RAM,有限的flash，有限的网络带宽， 针对此类特殊场景，COAP协议借鉴了">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP07.jpeg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP.Png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP01.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP02.jpeg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP03.jpeg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP04.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/optionnumber.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP06.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/option.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/blockresponse.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/option-block-struct.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP05.jpeg">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/observer.png">
+<meta property="og:image" content="http://yoursite.com/2020/01/04/images/coap/observingex.png">
+<meta property="og:updated_time" content="2020-08-29T14:14:10.183Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CoAP协议">
+<meta name="twitter:description" content="NB-IoT CoAP协议协议简介CoAP（Constrained Application Protocol）是一种在物联网世界的类web协议，它的详细规范定义在 RFC 7252。在物联网应用里面， 设备与设备之间都存在网络里面，它们需要互相进行网络通信。 但由于通常物联网设备都是资源限制型的，有限的CPU能力，有限RAM,有限的flash，有限的网络带宽， 针对此类特殊场景，COAP协议借鉴了">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/04/images/coap/CoAP07.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/04/nb_iot/CoAP协议/">
+
+
+
+
+
+  <title>CoAP协议 | kerwinan</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kerwinan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/04/nb_iot/CoAP协议/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kerwinan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kerwinan">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CoAP协议</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-04T00:32:43+08:00">
+                2020-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Cloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="NB-IoT-CoAP协议"><a href="#NB-IoT-CoAP协议" class="headerlink" title="NB-IoT CoAP协议"></a>NB-IoT CoAP协议</h3><h4 id="协议简介"><a href="#协议简介" class="headerlink" title="协议简介"></a>协议简介</h4><p><strong>CoAP（Constrained Application Protocol）</strong>是一种在物联网世界的类web协议，它的详细规范定义在 RFC 7252。在物联网应用里面， 设备与设备之间都存在网络里面，它们需要互相进行网络通信。 但由于通常物联网设备都是资源限制型的，有限的CPU能力，有限RAM,有限的flash，有限的网络带宽， 针对此类特殊场景，COAP协议借鉴了HTTP协议机制并简化了协议包格式。简洁地实现了物联网设备之间通信。</p>
+<h5 id="CoAP-请求-响应工作模式"><a href="#CoAP-请求-响应工作模式" class="headerlink" title="CoAP 请求/响应工作模式"></a>CoAP 请求/响应工作模式</h5><p><img src="../../images/coap/CoAP07.jpeg" alt="img"></p>
+<p>通常由客户端发送CoAP请求，服务器一旦侦听到该请求便会根据请求内容返回响应吗和响应内容。</p>
+<h3 id="CoAP协议主体内容"><a href="#CoAP协议主体内容" class="headerlink" title="CoAP协议主体内容"></a>CoAP协议主体内容</h3><p><img src="../../images/coap/CoAP.Png" alt="img"></p>
+<h4 id="协议模型"><a href="#协议模型" class="headerlink" title="协议模型"></a>协议模型</h4><p><img src="../../images/coap/CoAP01.png" alt="img"></p>
+<ul>
+<li>传输层改为UDP</li>
+<li>基于REST</li>
+<li>二进制格式，轻量化</li>
+<li>支持可靠传输，数据重传，块传输。确保数据可靠到达</li>
+<li>支持IP多播，同时向多个设备发送请求</li>
+<li>非长连接通信</li>
+</ul>
+<h4 id="消息类型（Messages）"><a href="#消息类型（Messages）" class="headerlink" title="消息类型（Messages）"></a>消息类型（Messages）</h4><ol>
+<li><strong>CON</strong>——需要被确认的请求，如果CON请求被发送，则对方<strong>必须作出响应</strong>。用以<strong>可靠消息传输</strong>。</li>
+</ol>
+<p><img src="../../images/coap/CoAP02.jpeg" alt="img"></p>
+<ol start="2">
+<li><p><strong>NON</strong>——不需要被确认的请求，如果NON请求被发送，则对方不必做出回应。适用于消息会重复频繁的发送，用以<strong>不可靠消息传输</strong>。</p>
+<p><img src="../../images/coap/CoAP03.jpeg" alt=""></p>
+</li>
+<li><p><strong>ACK</strong>——应答消息，对应CON消息的应答。</p>
+</li>
+<li><p><strong>RST</strong>——复位消息，可靠消息传输时接收的消息不认识或错误时，不能回ACK消息，必须回RST消息。</p>
+</li>
+</ol>
+<h4 id="CoAP消息格式"><a href="#CoAP消息格式" class="headerlink" title="CoAP消息格式"></a>CoAP消息格式<a name="CoAP消息格式"></a></h4><p><img src="../../images/coap/CoAP04.png" alt="img"></p>
+<ul>
+<li><p><strong>消息头（HEAD）</strong></p>
+<p>第一行为消息头，固定4个byte</p>
+<ul>
+<li><p>Ver：2bits，版本信息</p>
+</li>
+<li><p>Type：2bits，消息类型，包括CON（0：Confirmable），NON（1：Non-confirmable），ACK（2：Acknowledgement），RST4（3：Reset）种</p>
+</li>
+<li><p>TKL：4bits，token长度</p>
+</li>
+<li><p>Code：8bits，前3位代表类型，0表示空消息或请求码，2开头代表响应码，格式为<code>class.code</code>，取值如下：</p>
+<ul>
+<li><p>Method：0.XX</p>
+<p>| code | 描述   |<br>| —- | —— |<br>| 0    | EMPTY  |<br>| 1    | GET    |<br>| 2    | POST   |<br>| 3    | PUT    |<br>| 4    | DELETE |<br>| 5    | FETCH  |<br>| 6    | PATCH  |<br>| 7    | iPATCH |</p>
+</li>
+<li><p>Success：2.XX</p>
+<p>| code | 描述     |<br>| —- | ——– |<br>| 1    | Created  |<br>| 2    | Deleted  |<br>| 3    | Vaild    |<br>| 4    | Changed  |<br>| 5    | Content  |<br>| 31   | Continue |</p>
+</li>
+<li><p>Client Error：4.XX</p>
+<p>| code | 描述                       |<br>| —- | ————————– |<br>| 0    | Bad Request                |<br>| 1    | Unauthorized               |<br>| 2    | Bad Option                 |<br>| 3    | Forbidden                  |<br>| 4    | Not Found                  |<br>| 5    | Method Not Allowed         |<br>| 6    | Not Acceptable             |<br>| 8    | Request Entity Incomplete  |<br>| 9    | Conflict                   |<br>| 12   | Precondition Failed        |<br>| 13   | Request Entity Too Large   |<br>| 15   | Unsupported Content-Format |</p>
+</li>
+<li><p>Server Error：5.XX</p>
+<p>| code | 描述                   |<br>| —- | ———————- |<br>| 0    | Internal Server Error  |<br>| 1    | Not Implemented        |<br>| 2    | Bad Gateway            |<br>| 3    | Service Unavailable    |<br>| 4    | Gateway Timeout        |<br>| 5    | Proxying Not Supported |</p>
+</li>
+<li><p>Signaling Codes：7.XX</p>
+<p>| code | 描述       |<br>| —- | ———- |<br>| 0    | Unassigned |<br>| 1    | CSM        |<br>| 2    | Ping       |<br>| 3    | Pong       |<br>| 4    | Release    |<br>| 5    | Abort      |</p>
+</li>
+</ul>
+</li>
+<li><p>Message ID：16bit，消息MID，每个消息都含有一个ID，重发的消息MID不变</p>
+</li>
+</ul>
+</li>
+<li><p><strong>token（可选）</strong></p>
+</li>
+<li><p><strong>option（可选，0个或多个）</strong></p>
+<p>主要用于描述请求或响应对应的各个属性，</p>
+<p><img src="../../images/coap/optionnumber.png" alt=""></p>
+</li>
+<li><p><strong>payload（可选）</strong></p>
+<p>实际携带数据的内容。</p>
+</li>
+<li><p><strong>CoAP请求码（requests）和响应码（responses）</strong></p>
+<ul>
+<li>GET方法——获取某资源</li>
+<li>POST方法——创建某资源</li>
+<li>PUT方法——更新某资源</li>
+<li>DELETE方法——删除某资源</li>
+</ul>
+</li>
+</ul>
+<h5 id="请求例子（二进制格式），相较HTTP包更小，可双向通信"><a href="#请求例子（二进制格式），相较HTTP包更小，可双向通信" class="headerlink" title="请求例子（二进制格式），相较HTTP包更小，可双向通信"></a>请求例子（二进制格式），相较HTTP包更小，可双向通信</h5><p><img src="../../images/coap/CoAP06.png" alt="img"></p>
+<h4 id="CoAP的URL"><a href="#CoAP的URL" class="headerlink" title="CoAP的URL"></a>CoAP的URL</h4><p>开头为“coap”对应“http”或“coaps”对应“https”。coap默认端口udp（5683），coaps为5684</p>
+<h4 id="CoAP块传输"><a href="#CoAP块传输" class="headerlink" title="CoAP块传输"></a>CoAP块传输</h4><p>块传输协议在CoAP基础协议上增加了4个options（其中size1最早在RFC7252中定义，RFC7959进行了扩展），2个response codes用于块传输大小协商及控制。</p>
+<h5 id="option"><a href="#option" class="headerlink" title="option"></a>option</h5><p><img src="../../images/coap/option.png" alt="img"></p>
+<p>采用Block1和Size1完成Request中Resource Presentation的块传输。</p>
+<p>采用Block2和Size2完成Response中Resource Presentation的块传输。</p>
+<h5 id="Response-Code"><a href="#Response-Code" class="headerlink" title="Response Code"></a>Response Code</h5><p><img src="../../images/coap/blockresponse.png" alt="img"></p>
+<ul>
+<li>Continue：表明Server收到了本次通过Request传输的块，期望Client继续发送下一个块，目前还不能执行该Request，返回最终的Response。</li>
+<li>Request Entity Incomplete：表明Server由于多种原因：Client未发送所有块了；没有按Server要求的顺序发送块；块发送时间跨度太大导致Server已丢弃块，未能完成body的接收。</li>
+</ul>
+<h5 id="block-option结构"><a href="#block-option结构" class="headerlink" title="block option结构"></a>block option结构</h5><p><img src="../../images/coap/option-block-struct.png" alt="img"></p>
+<ul>
+<li>NUM：具有给定大小的块序列内的块的相对数（从0开始编号），即快序号</li>
+<li>M：是否有更多块</li>
+<li>SZX：block size，3bit，取值0-6，实际每个块的payload为<strong>2^(4+SZX)</strong>，即块大小为16~1024字节</li>
+</ul>
+<h4 id="CoAP的安全性"><a href="#CoAP的安全性" class="headerlink" title="CoAP的安全性"></a>CoAP的安全性</h4><p>COAP的安全性是用DTLS加密实现的，运行在UDP之上。DTLS的实现需要的资源和带宽较多，如果是资源非常少的终端和极有限的带宽下可能会跑不起来。DTLS仅仅在单播情况下适用。</p>
+<p><img src="../../images/coap/CoAP05.jpeg" alt="img"></p>
+<h3 id="订阅-发布"><a href="#订阅-发布" class="headerlink" title="订阅/发布"></a>订阅/发布</h3><p>MQTT协议基于订阅/发布模型，CoAP协议通过扩展方式简单的实现了订阅/发布模型。<a href="https://tools.ietf.org/html/rfc7641" target="_blank" rel="noopener">RFC9641</a></p>
+<h4 id="模型框架"><a href="#模型框架" class="headerlink" title="模型框架"></a>模型框架</h4><p><img src="../../images/coap/observer.png" alt=""></p>
+<ul>
+<li>Subject（主题）：代表CoAP服务器上的某resource（资源），该资源状态随时可能发生变化</li>
+<li>Observer（观察者）：代表某个CoAP资源最新状态感兴趣的客户端CoAP Client</li>
+<li>Registration（登记）：观察者需要向服务器CoAP Server登记感兴趣的Subject</li>
+<li>Notification（通知）：当CoAP观察到某个Subject发生状态变化时，CoAP服务器会主动向该Subject下已登记的观察者列表里的每个观察者发送其订阅的Subject最新状态数据。</li>
+</ul>
+<p>观察协议在CoAP基础协议上增加了一个Observe option，其值为整数，通过该option来实现订阅/发布模型管理。</p>
+<p>在GET请求中，</p>
+<ul>
+<li>observe value为0：向服务器订阅一个Subject</li>
+<li>observe value为1：向服务器移除一个已订阅Subject</li>
+</ul>
+<p>在Notification中，observe value代表Subject发生变化时，检测到的顺序。</p>
+<p><img src="../../images/coap/observingex.png" alt=""></p>
+<ol>
+<li>客户端向服务器登记感兴趣的Subject /temperature</li>
+<li>当temperature发生状态改变时，服务器主动通知客户端</li>
+<li>客户端根据token，与之前订阅Subject进行关联，以此确定是哪个Subject订阅的。</li>
+</ol>
+<h3 id="CoAP消息处理流程"><a href="#CoAP消息处理流程" class="headerlink" title="CoAP消息处理流程"></a>CoAP消息处理流程<a name="CoAP消息处理流程"></a></h3><h5 id="数据上报"><a href="#数据上报" class="headerlink" title="数据上报"></a>数据上报<a name="数据上报"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">participant UE</span><br><span class="line">participant IoT</span><br><span class="line">participant 编解码插件</span><br><span class="line">participant APP Server</span><br><span class="line">UE-&gt;&gt;IoT: 上行消息 msgType：deviceReq</span><br><span class="line">Note right of UE:创建信令（命令的&lt;br/&gt;相关项和设备Profile&lt;br/&gt;中的描述一致），&lt;br/&gt;发送至平台</span><br><span class="line">IoT-&gt;&gt;IoT:解析CoAP消息，得到payload</span><br><span class="line">IoT-&gt;&gt;IoT:查找对应的编解码插件</span><br><span class="line">IoT-&gt;&gt;编解码插件:解码1 decode 输入：payload</span><br><span class="line">编解码插件--&gt;&gt;IoT:输出：JSON数据</span><br><span class="line">IoT-&gt;&gt;APP Server:设备数据上报通知</span><br><span class="line">IoT-&gt;&gt;编解码插件:编码1 encode 输入：json数据</span><br><span class="line">编解码插件--&gt;&gt;IoT:输出：payload</span><br><span class="line">IoT--&gt;&gt;UE:上行消息的应答响应 msgType：cloudRsp</span><br></pre></td></tr></table></figure>
+<h5 id="命令下发"><a href="#命令下发" class="headerlink" title="命令下发"></a>命令下发<a name="命令下发"></a></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sequenceDiagram</span><br><span class="line">participant UE</span><br><span class="line">participant 编解码插件</span><br><span class="line">participant IoT</span><br><span class="line">participant APP Server</span><br><span class="line">APP Server--&gt;&gt;IoT:下行消息 msgType：deviceReq</span><br><span class="line">IoT-&gt;&gt;IoT:查找对应的编解码插件</span><br><span class="line">IoT--&gt;&gt;编解码插件:编码2 encode 输入：json数据</span><br><span class="line">编解码插件-&gt;&gt;IoT:输出：二进制数据</span><br><span class="line">IoT-&gt;&gt;IoT:组装成COAP报文</span><br><span class="line">IoT--&gt;&gt;UE:发送消息给UE</span><br><span class="line">UE-&gt;&gt;IoT:命令结果上报</span><br><span class="line">IoT--&gt;&gt;编解码插件:解码2 decode 输入：二进制数据</span><br><span class="line">编解码插件-&gt;&gt;IoT:输出：json数据</span><br><span class="line">IoT--&gt;&gt;APP Server:上报通知</span><br></pre></td></tr></table></figure>
+<h4 id="Go-CoAP"><a href="#Go-CoAP" class="headerlink" title="Go-CoAP"></a>Go-CoAP<a name="Go-CoAP"></a></h4><ul>
+<li><p><a href="https://github.com/go-ocf/go-coap" target="_blank" rel="noopener">Go-CoAP</a></p>
+<p>feature：Core, Observe, Blockwise, Multicast, TCP/TLS</p>
+</li>
+<li><p><a href="https://github.com/dustin/go-coap" target="_blank" rel="noopener">CoAP implementation for Go</a></p>
+<p>feature：Core + Draft Subscribe</p>
+</li>
+<li><p><a href="https://github.com/zubairhamed/canopus" target="_blank" rel="noopener">Canopus</a></p>
+<p>feature：Core</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/概念/" rel="tag"># 概念</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/03/nb_iot/NB-IoT/" rel="next" title="NB-IoT">
+                <i class="fa fa-chevron-left"></i> NB-IoT
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/04/database/Redis介绍/" rel="prev" title="Redis介绍">
+                Redis介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="kerwinan">
+            
+              <p class="site-author-name" itemprop="name">kerwinan</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kerwinan" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NB-IoT-CoAP协议"><span class="nav-number">1.</span> <span class="nav-text">NB-IoT CoAP协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#协议简介"><span class="nav-number">1.1.</span> <span class="nav-text">协议简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CoAP-请求-响应工作模式"><span class="nav-number">1.1.1.</span> <span class="nav-text">CoAP 请求/响应工作模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CoAP协议主体内容"><span class="nav-number">2.</span> <span class="nav-text">CoAP协议主体内容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#协议模型"><span class="nav-number">2.1.</span> <span class="nav-text">协议模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息类型（Messages）"><span class="nav-number">2.2.</span> <span class="nav-text">消息类型（Messages）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CoAP消息格式"><span class="nav-number">2.3.</span> <span class="nav-text">CoAP消息格式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#请求例子（二进制格式），相较HTTP包更小，可双向通信"><span class="nav-number">2.3.1.</span> <span class="nav-text">请求例子（二进制格式），相较HTTP包更小，可双向通信</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CoAP的URL"><span class="nav-number">2.4.</span> <span class="nav-text">CoAP的URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CoAP块传输"><span class="nav-number">2.5.</span> <span class="nav-text">CoAP块传输</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#option"><span class="nav-number">2.5.1.</span> <span class="nav-text">option</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Response-Code"><span class="nav-number">2.5.2.</span> <span class="nav-text">Response Code</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#block-option结构"><span class="nav-number">2.5.3.</span> <span class="nav-text">block option结构</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CoAP的安全性"><span class="nav-number">2.6.</span> <span class="nav-text">CoAP的安全性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订阅-发布"><span class="nav-number">3.</span> <span class="nav-text">订阅/发布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型框架"><span class="nav-number">3.1.</span> <span class="nav-text">模型框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CoAP消息处理流程"><span class="nav-number">4.</span> <span class="nav-text">CoAP消息处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据上报"><span class="nav-number">4.0.1.</span> <span class="nav-text">数据上报</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令下发"><span class="nav-number">4.0.2.</span> <span class="nav-text">命令下发</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-CoAP"><span class="nav-number">4.1.</span> <span class="nav-text">Go-CoAP</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kerwinan</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
