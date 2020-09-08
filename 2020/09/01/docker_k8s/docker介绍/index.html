@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="docker核心原理 容器是一个单进程模型   启用Linux Namespace配置 设置指定的Cgroups参数 切换进程的根目录(Change Root)  Linux Namespace 主要作用为隔离，让应用进程只能看到该namespace内的东西 Cgroups 主要作用为限制，用来为设置资源限制 综上，一个正在运行的Docker容器，实则是一个启用了多个Linux Namespace">
+<meta name="description" content="docker镜像镜像用于创建容器，使用build命令创建docker镜像，并在run启动时生成容器。 docker容器状态 运行 已暂停 重新启动 已退出  docker核心原理 容器是一个单进程模型   启用Linux Namespace配置 设置指定的Cgroups参数 切换进程的根目录(Change Root)  Linux Namespace 主要作用为隔离，让应用进程只能看到该names">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker介绍">
 <meta property="og:url" content="http://yoursite.com/2020/09/01/docker_k8s/docker介绍/index.html">
 <meta property="og:site_name" content="kerwinan">
-<meta property="og:description" content="docker核心原理 容器是一个单进程模型   启用Linux Namespace配置 设置指定的Cgroups参数 切换进程的根目录(Change Root)  Linux Namespace 主要作用为隔离，让应用进程只能看到该namespace内的东西 Cgroups 主要作用为限制，用来为设置资源限制 综上，一个正在运行的Docker容器，实则是一个启用了多个Linux Namespace">
+<meta property="og:description" content="docker镜像镜像用于创建容器，使用build命令创建docker镜像，并在run启动时生成容器。 docker容器状态 运行 已暂停 重新启动 已退出  docker核心原理 容器是一个单进程模型   启用Linux Namespace配置 设置指定的Cgroups参数 切换进程的根目录(Change Root)  Linux Namespace 主要作用为隔离，让应用进程只能看到该names">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-09-01T13:06:26.381Z">
+<meta property="og:updated_time" content="2020-09-07T12:35:00.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker介绍">
-<meta name="twitter:description" content="docker核心原理 容器是一个单进程模型   启用Linux Namespace配置 设置指定的Cgroups参数 切换进程的根目录(Change Root)  Linux Namespace 主要作用为隔离，让应用进程只能看到该namespace内的东西 Cgroups 主要作用为限制，用来为设置资源限制 综上，一个正在运行的Docker容器，实则是一个启用了多个Linux Namespace">
+<meta name="twitter:description" content="docker镜像镜像用于创建容器，使用build命令创建docker镜像，并在run启动时生成容器。 docker容器状态 运行 已暂停 重新启动 已退出  docker核心原理 容器是一个单进程模型   启用Linux Namespace配置 设置指定的Cgroups参数 切换进程的根目录(Change Root)  Linux Namespace 主要作用为隔离，让应用进程只能看到该names">
 
 
 
@@ -352,7 +352,14 @@
       
 
       
-        <h3 id="docker核心原理"><a href="#docker核心原理" class="headerlink" title="docker核心原理"></a>docker核心原理</h3><blockquote>
+        <h3 id="docker镜像"><a href="#docker镜像" class="headerlink" title="docker镜像"></a>docker镜像</h3><p>镜像用于创建容器，使用build命令创建docker镜像，并在run启动时生成容器。</p>
+<h3 id="docker容器状态"><a href="#docker容器状态" class="headerlink" title="docker容器状态"></a>docker容器状态</h3><ul>
+<li>运行</li>
+<li>已暂停</li>
+<li>重新启动</li>
+<li>已退出</li>
+</ul>
+<h3 id="docker核心原理"><a href="#docker核心原理" class="headerlink" title="docker核心原理"></a>docker核心原理</h3><blockquote>
 <p>容器是一个<strong>单进程</strong>模型</p>
 </blockquote>
 <ol>
@@ -545,7 +552,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker核心原理"><span class="nav-number">1.</span> <span class="nav-text">docker核心原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker镜像"><span class="nav-number">1.</span> <span class="nav-text">docker镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker容器状态"><span class="nav-number">2.</span> <span class="nav-text">docker容器状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker核心原理"><span class="nav-number">3.</span> <span class="nav-text">docker核心原理</span></a></li></ol></div>
             
 
           </div>

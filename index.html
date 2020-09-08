@@ -352,16 +352,20 @@
       
         
           
-          docker核心原理
+          docker镜像镜像用于创建容器，使用build命令创建docker镜像，并在run启动时生成容器。
+docker容器状态
+运行
+已暂停
+重新启动
+已退出
+
+docker核心原理
 容器是一个单进程模型
 
 
 启用Linux Namespace配置
 设置指定的Cgroups参数
-切换进程的根目录(Change Root)
-
-Linux Namespace 主要作用为隔离，让应用进程只能看到该namespace内的东西
-Cgroups 主要作用为限制，用来为设
+切换进程的根目录(Cha
           ...
           <!--noindex-->
           <div class="post-button text-center">
